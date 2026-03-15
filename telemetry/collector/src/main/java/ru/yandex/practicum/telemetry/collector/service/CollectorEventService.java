@@ -2,7 +2,8 @@ package ru.yandex.practicum.telemetry.collector.service;
 
 import java.util.concurrent.ExecutionException;
 import org.apache.avro.specific.SpecificRecordBase;
-import org.springframework.kafka.core.KafkaTemplate;
+import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.telemetry.collector.config.KafkaTopicsProperties;
 import ru.yandex.practicum.telemetry.collector.exception.KafkaPublishException;
@@ -14,18 +15,18 @@ import ru.yandex.practicum.telemetry.collector.model.sensor.SensorEvent;
 @Service
 public class CollectorEventService {
 
-    private final KafkaTemplate<String, SpecificRecordBase> kafkaTemplate;
+    private final Producer<String, SpecificRecordBase> kafkaProducer;
     private final KafkaTopicsProperties topicsProperties;
     private final SensorEventAvroMapper sensorEventAvroMapper;
     private final HubEventAvroMapper hubEventAvroMapper;
 
     public CollectorEventService(
-            KafkaTemplate<String, SpecificRecordBase> kafkaTemplate,
+            Producer<String, SpecificRecordBase> kafkaProducer,
             KafkaTopicsProperties topicsProperties,
             SensorEventAvroMapper sensorEventAvroMapper,
             HubEventAvroMapper hubEventAvroMapper
     ) {
-        this.kafkaTemplate = kafkaTemplate;
+        this.kafkaProducer = kafkaProducer;
         this.topicsProperties = topicsProperties;
         this.sensorEventAvroMapper = sensorEventAvroMapper;
         this.hubEventAvroMapper = hubEventAvroMapper;
@@ -49,7 +50,7 @@ public class CollectorEventService {
 
     private void publish(String topic, String key, SpecificRecordBase payload) {
         try {
-            kafkaTemplate.send(topic, key, payload).get();
+            kafkaProducer.send(new ProducerRecord<>(topic, key, payload)).get();
         } catch (InterruptedException exception) {
             Thread.currentThread().interrupt();
             throw new KafkaPublishException("Interrupted while publishing event to Kafka topic " + topic, exception);
