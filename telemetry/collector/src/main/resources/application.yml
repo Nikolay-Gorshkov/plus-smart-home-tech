@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: collector
+
+grpc:
+  server:
+    port: 59091
+
+collector:
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+    producer:
+      acks: all
+      enable-idempotence: true
+    topics:
+      sensor-events: telemetry.sensors.v1
+      hub-events: telemetry.hubs.v1
