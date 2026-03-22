@@ -5,7 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import ru.yandex.practicum.telemetry.analyzer.db.HubIdIntegrityValidator;
 
 @Entity
 @Table(name = "scenario_actions")
@@ -30,6 +33,7 @@ public class ScenarioActionLinkEntity {
     }
 
     public ScenarioActionLinkEntity(ScenarioEntity scenario, SensorEntity sensor, ActionEntity action) {
+        HubIdIntegrityValidator.validate(scenario, sensor);
         this.id = new ScenarioActionLinkId(scenario.getId(), sensor.getId(), action.getId());
         this.scenario = scenario;
         this.sensor = sensor;
@@ -50,5 +54,11 @@ public class ScenarioActionLinkEntity {
 
     public ActionEntity getAction() {
         return action;
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void validateHubIdIntegrity() {
+        HubIdIntegrityValidator.validate(scenario, sensor);
     }
 }

@@ -2,10 +2,10 @@ spring:
   application:
     name: analyzer
   datasource:
-    url: jdbc:h2:file:./telemetry/analyzer/analyzer-db;MODE=PostgreSQL;DB_CLOSE_ON_EXIT=FALSE
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/telemetry_analyzer}
+    driver-class-name: org.postgresql.Driver
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
   jpa:
     hibernate:
       ddl-auto: none
