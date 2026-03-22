@@ -48,3 +48,16 @@ CREATE TABLE IF NOT EXISTS scenario_actions (
     CONSTRAINT fk_scenario_actions_action
         FOREIGN KEY (action_id) REFERENCES actions(id)
 );
+
+CREATE ALIAS IF NOT EXISTS check_hub_id
+FOR "ru.yandex.practicum.telemetry.analyzer.db.HubIdIntegritySupport.checkHubId";
+
+CREATE TRIGGER IF NOT EXISTS tr_bi_scenario_conditions_hub_id_check
+BEFORE INSERT ON scenario_conditions
+FOR EACH ROW
+CALL "ru.yandex.practicum.telemetry.analyzer.db.HubIdIntegrityTrigger";
+
+CREATE TRIGGER IF NOT EXISTS tr_bi_scenario_actions_hub_id_check
+BEFORE INSERT ON scenario_actions
+FOR EACH ROW
+CALL "ru.yandex.practicum.telemetry.analyzer.db.HubIdIntegrityTrigger";
