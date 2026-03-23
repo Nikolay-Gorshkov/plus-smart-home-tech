@@ -135,8 +135,8 @@ public class AggregatorKafkaProperties {
 
     public static class Topics {
 
-        private String sensorEvents = "telemetry.sensors.v1";
-        private String snapshots = "telemetry.snapshots.v1";
+        private String sensorEvents;
+        private String snapshots;
 
         public String getSensorEvents() {
             return sensorEvents;

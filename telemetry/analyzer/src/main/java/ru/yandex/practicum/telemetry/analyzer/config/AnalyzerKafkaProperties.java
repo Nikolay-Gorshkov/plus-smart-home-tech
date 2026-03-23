@@ -104,8 +104,8 @@ public class AnalyzerKafkaProperties {
 
     public static class Topics {
 
-        private String hubEvents = "telemetry.hubs.v1";
-        private String snapshots = "telemetry.snapshots.v1";
+        private String hubEvents;
+        private String snapshots;
 
         public String getHubEvents() {
             return hubEvents;
