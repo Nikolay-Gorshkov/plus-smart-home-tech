@@ -2,12 +2,9 @@ spring:
   application:
     name: analyzer
   config:
-    import: "configserver:"
+    import: "configserver:http://localhost:8888"
   cloud:
     config:
-      discovery:
-        enabled: true
-        serviceId: configserver
       fail-fast: true
       retry:
         useRandomPolicy: true
