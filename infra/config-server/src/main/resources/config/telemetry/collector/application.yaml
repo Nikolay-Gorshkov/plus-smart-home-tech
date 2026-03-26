@@ -2,6 +2,13 @@ spring:
   application:
     name: collector
 
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${grpc.server.port}
+    non-secure-port: ${grpc.server.port}
+    metadata-map:
+      grpc.port: ${grpc.server.port}
+
 grpc:
   server:
     port: 59091
