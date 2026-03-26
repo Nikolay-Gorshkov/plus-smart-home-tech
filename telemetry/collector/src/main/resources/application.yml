@@ -1,18 +1,11 @@
 spring:
   application:
     name: collector
-
-grpc:
-  server:
-    port: 59091
-
-collector:
-  kafka:
-    bootstrap-servers:
-      - localhost:9092
-    producer:
-      acks: all
-      enable-idempotence: true
-    topics:
-      sensor-events: telemetry.sensors.v1
-      hub-events: telemetry.hubs.v1
+  config:
+    import: configserver:http://localhost:8888
+  cloud:
+    config:
+      fail-fast: true
+      retry:
+        useRandomPolicy: true
+        max-interval: 6000
