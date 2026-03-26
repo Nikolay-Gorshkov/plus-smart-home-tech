@@ -1,0 +1,13 @@
+package ru.yandex.practicum.telemetry.analyzer.repository;
+
+import java.util.List;
+import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import ru.yandex.practicum.telemetry.analyzer.entity.ScenarioEntity;
+
+public interface ScenarioRepository extends JpaRepository<ScenarioEntity, Long> {
+
+    List<ScenarioEntity> findByHubId(String hubId);
+
+    Optional<ScenarioEntity> findByHubIdAndName(String hubId, String name);
+}
