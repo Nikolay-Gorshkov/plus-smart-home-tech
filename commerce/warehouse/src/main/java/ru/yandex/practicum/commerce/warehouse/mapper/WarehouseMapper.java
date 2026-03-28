@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import ru.yandex.practicum.commerce.interaction.api.dto.AddressDto;
 import ru.yandex.practicum.commerce.interaction.api.request.NewProductInWarehouseRequest;
 import ru.yandex.practicum.commerce.warehouse.entity.WarehouseProductEntity;
+import ru.yandex.practicum.commerce.warehouse.config.WarehouseAddressProperties;
 
 @Component
 public class WarehouseMapper {
@@ -20,7 +21,7 @@ public class WarehouseMapper {
         return entity;
     }
 
-    public AddressDto toAddressDto(String address) {
-        return new AddressDto(address, address, address, address, address);
+    public AddressDto toAddressDto(WarehouseAddressProperties warehouseAddressProperties) {
+        return warehouseAddressProperties.toDto();
     }
 }

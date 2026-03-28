@@ -2,10 +2,12 @@ package ru.yandex.practicum.commerce.warehouse;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import ru.yandex.practicum.commerce.interaction.api.client.ShoppingStoreClient;
 
 @SpringBootApplication
+@ConfigurationPropertiesScan
 @EnableFeignClients(clients = ShoppingStoreClient.class)
 public class WarehouseApplication {
 

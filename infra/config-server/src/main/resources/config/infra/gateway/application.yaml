@@ -27,3 +27,27 @@ spring:
                   - NOT_FOUND
                 methods:
                   - GET
+        - id: warehouse-service-route
+          uri: lb://warehouse
+          predicates:
+            - Path=/warehouse,/warehouse/**
+          filters:
+            - PrefixPath=/api/v1
+        - id: order-service-route
+          uri: lb://order
+          predicates:
+            - Path=/order,/order/**
+          filters:
+            - PrefixPath=/api/v1
+        - id: payment-service-route
+          uri: lb://payment
+          predicates:
+            - Path=/payment,/payment/**
+          filters:
+            - PrefixPath=/api/v1
+        - id: delivery-service-route
+          uri: lb://delivery
+          predicates:
+            - Path=/delivery,/delivery/**
+          filters:
+            - PrefixPath=/api/v1

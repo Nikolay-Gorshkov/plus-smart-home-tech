@@ -20,6 +20,14 @@ spring:
     init:
       mode: always
 
+warehouse:
+  address:
+    country: ADDRESS_1
+    city: ADDRESS_1
+    street: ADDRESS_1
+    house: 1
+    flat: ""
+
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
