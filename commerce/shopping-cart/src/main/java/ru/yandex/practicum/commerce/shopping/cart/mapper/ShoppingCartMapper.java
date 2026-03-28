@@ -10,6 +10,6 @@ import ru.yandex.practicum.commerce.shopping.cart.entity.ShoppingCartEntity;
 public class ShoppingCartMapper {
 
     public ShoppingCartDto toDto(ShoppingCartEntity entity) {
-        return new ShoppingCartDto(entity.getShoppingCartId(), new LinkedHashMap<>(entity.getProducts()));
+        return new ShoppingCartDto(entity.getShoppingCartId(), new LinkedHashMap<>(entity.getProducts()), entity.getUsername());
     }
 }

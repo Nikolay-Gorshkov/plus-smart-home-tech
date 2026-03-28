@@ -11,4 +11,8 @@ public class NoSpecifiedProductInWarehouseException extends ServiceApiException 
                 "Product with id " + productId + " is not registered in warehouse",
                 "Нет информации о товаре на складе");
     }
+
+    public NoSpecifiedProductInWarehouseException(String message) {
+        super(HttpStatus.BAD_REQUEST, message, "Нет информации о товаре на складе");
+    }
 }
